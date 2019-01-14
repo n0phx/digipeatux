@@ -1,0 +1,3 @@
+# uname UID gname GID pw homedir shell groups comment
+aprs 1000 aprs 1000 =aprs /home/aprs /bin/sh sudo
+

@@ -1,0 +1,7 @@
+# sudoers
+#
+# Default setup gives root and members of 'sudo' group unlimited access with
+# password authentication.
+
+root    ALL=(ALL) ALL
+%sudo   ALL=(ALL) ALL
