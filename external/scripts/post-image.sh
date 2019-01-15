@@ -2,15 +2,15 @@
 
 set -e
 
-if [ ! -f "$1" ]; then
-	echo "genimage configuration file not found on given path: $1"
+if [ ! -f "$2" ]; then
+	echo "genimage configuration file not found on given path: $2"
 	exit 1
 fi
 
-GENIMAGE_CFG="$1"
+GENIMAGE_CFG="$2"
 GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
-CONF_PARTITION_SIZE="$2"
-DATA_PARTITION_SIZE="$3"
+CONF_PARTITION_SIZE="$3"
+DATA_PARTITION_SIZE="$4"
 
 makeimg() {
 	outpath="$1"
