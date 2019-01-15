@@ -1,0 +1,24 @@
+menu "System configuration"
+
+	config DPT_CONF_PARTITION_SIZE
+		int "Size of the partition for configuration files in MiB"
+		default 64
+		help
+			The root filesystem is unpacked into RAM and mounted
+			rw, but it's volatile, and all the changes are lost
+			after rebooting the system. For this reason a separate
+			partition is used for non-volatile storage of important
+			configuration files.
+
+	config DPT_DATA_PARTITION_SIZE
+		int "Size of the partition for arbitrary data files in MiB"
+		default 64
+		help
+			The root filesystem is unpacked into RAM and mounted
+			rw, but it's volatile, and all the changes are lost
+			after rebooting the system. For this reason a separate
+			partition is used for non-volatile storage of arbitrary
+			data files (such as log files, databases, ...).
+
+endmenu
+
