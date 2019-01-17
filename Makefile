@@ -40,3 +40,5 @@ clean:
 $(CONFIG):
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) $(DEFCONFIG)
 
+.DEFAULT:
+	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) $@
