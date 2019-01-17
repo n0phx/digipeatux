@@ -1,0 +1,18 @@
+--- a/configure.ac
++++ b/configure2.ac
+@@ -294,6 +294,4 @@
+ p3dmodem/Makefile
+ soundcard/Makefile
+ flexdrv/Makefile
+-doc/Makefile
+-configapp/Makefile
+-configapp/src/Makefile])
++doc/Makefile])
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = po directx libmisc matlib afsk fsk pammodem pskmodem newqpsk p3dmodem soundcard flexdrv configapp doc
++SUBDIRS = po directx libmisc matlib afsk fsk pammodem pskmodem newqpsk p3dmodem soundcard flexdrv doc
+ 
+ EXTRA_DIST = m4/ChangeLog  ABOUT-NLS cfgwindows cfgwindowsnodebug soundmodem.spec soundmodem.initscript
+ 

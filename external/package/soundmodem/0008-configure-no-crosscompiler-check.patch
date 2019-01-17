@@ -1,0 +1,22 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -31,19 +31,6 @@
+ AC_EXEEXT
+ AC_OBJEXT
+ 
+-dnl check for cross compiler path
+-if test x$cross_compiling = xyes; then
+-  AC_MSG_CHECKING(for cross compiler path)
+-  if test -d /usr/local/cross/i686-pc-cygwin; then
+-    CROSSCOMPPATH=/usr/local/cross/i686-pc-cygwin
+-  elif test -d /usr/local/cygwin/i686-pc-cygwin; then
+-    CROSSCOMPPATH=/usr/local/cygwin/i686-pc-cygwin
+-  else
+-    AC_ERROR("cross compiler not found")
+-  fi
+-  AC_MSG_RESULT($CROSSCOMPPATH)
+-fi
+-
+ if test x$CYGWIN != xyes -a x$MINGW32 != xyes; then
+   AC_CHECK_LIB(m,sqrt)
+ fi

@@ -1,0 +1,185 @@
+Patch to fix ftbfs with GCC-5
+This is mostly removing unused variables and functions.
+colint@debian.org
+
+--- a/fsk/modem.c
++++ b/fsk/modem.c
+@@ -148,7 +148,7 @@
+ {
+         struct modstate *s = (struct modstate *)state;
+ 	int i, j;
+-	float f1, f2, time, alphatime;
++	float f1, f2, time;
+ 	float c[NUMFILTER * FILTERLEN];
+ 
+ 	s->phaseinc = (s->bps << 16) / samplerate;
+@@ -356,6 +356,7 @@
+ 	return fir(s->filter[WHICHFILTER(ph)], samples + WHICHSAMPLE(ph), s->firlen);
+ }
+ 
++#if 0
+ static int16_t equalizer(struct demodstate *s, int16_t s1, int16_t s2)
+ {
+ 	int16_t target;
+@@ -376,6 +377,7 @@
+  printf("%5d %5d %5d %5d %5d\n", s->eqf[0], s->eqf[1], s->eqf[2], s->eqf[3], s->eqf[4]);
+ 	return sum;
+ }
++#endif
+ 
+ static const struct modemparams demodparams[] = {
+         { "bps", "Bits/s", "Bits per second", "9600", MODEMPAR_NUMERIC, { n: { 4800, 38400, 100, 1200 } } },
+@@ -416,11 +418,15 @@
+ static void demodrx(struct demodstate *s, unsigned nsamples)
+ {
+ 	int16_t *samples;
+- 	int16_t curs, nexts, mids, xs, eq;
+-	int32_t gardner;
+-	unsigned int d, descx;
++ 	int16_t curs, nexts, mids;
++	unsigned int descx;
+ 	unsigned char ch[3];
+-	int corr, dcd;
++#if 0
++ 	int16_t eq;
++	int32_t gardner;
++	int corr;
++#endif
++        int dcd;
+ 
+ 	samples = alloca((nsamples + s->firlen) * sizeof(samples[0]));
+ 	audioread(s->chan, samples, nsamples + s->firlen, s->stime);
+@@ -448,8 +454,8 @@
+ 		mids += s->dcoffs;
+ 		nexts += s->dcoffs;
+ 		/* sample clock recovery */
+-		gardner = ((nexts > 0 ? 1 : -1) - (curs > 0 ? 1 : -1)) * mids;
+ #if 0
++		gardner = ((nexts > 0 ? 1 : -1) - (curs > 0 ? 1 : -1)) * mids;
+ 		eq = equalizer(s, mids, nexts);
+ #endif
+ 		s->pll += s->pllinc;
+@@ -531,7 +537,7 @@
+ 	float coeff[FILTEROVER][MAXFIRLEN];
+ 	float pulseen[FILTEROVER];
+ 	double tmul;
+-	float max1, max2, t, at, f1, f2;
++	float max1, max2, t, f1;
+ 	int i, j;
+ 
+ 	s->firlen = (samplerate * FILTERSPANBITS + s->bps - 1) / s->bps;
+--- a/fsk/modempsp.c
++++ b/fsk/modempsp.c
+@@ -344,8 +344,10 @@
+ {
+ 	int16_t *samples;
+  	int16_t curs, nexts, mids;
++#if 0
+ 	int32_t gardner;
+ 	int corr;
++#endif
+ 
+ 	samples = alloca((nsamples + s->firlen) * sizeof(samples[0]));
+ 	audioread(s->chan, samples, nsamples + s->firlen, s->stime);
+@@ -359,7 +361,9 @@
+ 		curs = filter(s, samples, s->pll);
+ 		mids = filter(s, samples, s->pll+s->pllinc/2);
+ 		nexts = filter(s, samples, s->pll+s->pllinc);
++#if 0
+ 		gardner = ((nexts > 0 ? 1 : -1) - (curs > 0 ? 1 : -1)) * mids;
++#endif
+ 		s->pll += s->pllinc;
+ #if 0
+ 		corr = (gardner * s->pllinc) >> 20;
+@@ -396,7 +400,7 @@
+         struct demodstate *s = (struct demodstate *)state;
+ 	float coeff[FILTEROVER][MAXFIRLEN];
+ 	double tmul;
+-	float max1, max2, t, at, f1, f2, f3;
++	float max1, max2, t;
+ 	int i, j;
+ 
+ 	s->firlen = (samplerate * FILTERSPANBITS + s->bps - 1) / s->bps;
+--- a/fsk/modemeq.c
++++ b/fsk/modemeq.c
+@@ -140,6 +140,7 @@
+ 	return fir(s->filter[WHICHFILTER(ph)], samples + WHICHSAMPLE(ph), s->firlen);
+ }
+ 
++#if 0
+ static int16_t equalizer(struct demodstate *s, int16_t s1, int16_t s2)
+ {
+ 	int16_t target;
+@@ -160,6 +161,7 @@
+  printf("%5d %5d %5d %5d %5d\n", s->eqf[0], s->eqf[1], s->eqf[2], s->eqf[3], s->eqf[4]);
+ 	return sum;
+ }
++#endif
+ 
+ static const struct modemparams demodparams[] = {
+         { "bps", "Bits/s", "Bits per second", "9600", MODEMPAR_NUMERIC, { n: { 4800, 38400, 100, 1200 } } },
+@@ -270,11 +272,14 @@
+ static void demodrx(struct demodstate *s, unsigned nsamples)
+ {
+ 	int16_t *samples;
+- 	int16_t curs, nexts, mids, xs, eqs;
+-	int32_t gardner;
+-	unsigned int d, descx;
++ 	int16_t curs, nexts, mids, eqs;
++	unsigned int descx;
+ 	unsigned char ch[3];
+-	int corr, dcd;
++	int dcd;
++#if 0
++	int32_t gardner;
++	int corr;
++#endif
+ 
+ 	samples = alloca((nsamples + s->firlen) * sizeof(samples[0]));
+ 	audioread(s->chan, samples, nsamples + s->firlen, s->stime);
+@@ -288,8 +293,8 @@
+ 		curs = filter(s, samples, s->pll);
+ 		mids = filter(s, samples, s->pll+s->pllinc/2);
+ 		nexts = filter(s, samples, s->pll+s->pllinc);
+-		gardner = ((nexts > 0 ? 1 : -1) - (curs > 0 ? 1 : -1)) * mids;
+ #if 0
++		gardner = ((nexts > 0 ? 1 : -1) - (curs > 0 ? 1 : -1)) * mids;
+ 		eqs = equalizer(s, mids, nexts);
+ #endif
+ 		eqs = filter_eq(s, curs, mids);
+@@ -384,7 +389,7 @@
+ 	float coeff[FILTEROVER][MAXFIRLEN];
+ 	float pulseen[FILTEROVER];
+ 	double tmul;
+-	float max1, max2, t, at, f1, f2;
++	float max1, max2, t, f1;
+ 	int i, j;
+ 
+ 	s->firlen = (samplerate * FILTERSPANBITS + s->bps - 1) / s->bps;
+--- a/afsk/modem.c
++++ b/afsk/modem.c
+@@ -277,7 +277,8 @@
+         unsigned int phasecorr = phinc >> 4;
+         unsigned int totsamp = ((12 * phinc) >> 16) + RXFILTLEN;
+         unsigned int phase, nr;
+-        int oldv, newv, midv, thv;
++        int oldv, newv, thv;
++        int midv = 0;
+ 
+         samples = alloca(totsamp * sizeof(samples[0]));
+         audioread(s->chan, samples, totsamp, s->rxphase >> 16);
+--- a/pammodem/genpamtbl.c
++++ b/pammodem/genpamtbl.c
+@@ -300,8 +300,11 @@
+ static void genrxfilt(FILE *f)
+ {
+ 	float coeff[RXFILTLEN * RXFILTOVER];
+-	double tmul, at, t, f1, f2;
++	double tmul, f1, f2;
+ 	int i, j;
++#if 0
++        double at, t;
++#endif
+ 
+ 	tmul = 1.0 * BITRATE / RXFILTOVER / SAMPLERATE;
+ #if 1

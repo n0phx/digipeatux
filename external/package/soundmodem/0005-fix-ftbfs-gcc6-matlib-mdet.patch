@@ -1,0 +1,24 @@
+Description: Fix FTBFS with GCC 6: return-statement with a value
+Author: Kamal Mostafa <kamal@whence.com>
+Bug-Debian: https://bugs.debian.org/812016
+
+The mdet() function is unused anyway, so just ifdef it out.
+
+--- soundmodem-0.20.orig/matlib/mat.hh
++++ soundmodem-0.20/matlib/mat.hh
+@@ -91,6 +91,7 @@ template<typename T> void mmul(T *c, con
+                 memcpy(c, r, d1 * d3 * sizeof(c[0]));
+ }
+ 
++#if 0
+ template<typename T> void mdet(const T *c, unsigned int d)
+ {
+         T *c2;
+@@ -120,6 +121,7 @@ template<typename T> void mdet(const T *
+         }
+         return det;
+ }
++#endif
+ 
+ /* Transpose a matrix (a el C^{d1 x d2}, b el C^{d2 x d1}) */
+ template<typename T> void mtranspose(T *b, const T *a, unsigned int d1, unsigned int d2)

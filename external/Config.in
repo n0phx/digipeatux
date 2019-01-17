@@ -22,3 +22,6 @@ menu "System configuration"
 
 endmenu
 
+menu "Applications"
+	source "$BR2_EXTERNAL_CUSTOM_PATH/package/soundmodem/Config.in"
+endmenu

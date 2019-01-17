@@ -1,0 +1,14 @@
+Description: Add stdint.h to kisspkt.c to fix FTBFS on GNU/kFreeBSD
+Author: Iain R. Learmonth <irl@fsfe.org>
+Last-Updated: 2015-05-05
+
+--- soundmodem.orig/soundcard/kisspkt.c
++++ soundmodem/soundcard/kisspkt.c
+@@ -58,6 +58,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <stdarg.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <errno.h>
+ #include <string.h>
