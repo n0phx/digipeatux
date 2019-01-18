@@ -1,0 +1,18 @@
+config BR2_PACKAGE_APRX
+	bool "aprx"
+	help
+	  APRS i-gate / digipeater
+
+	  aprx is for amateur radio APRS networking. It has a very small memory
+	  footprint, and integrates nicely with AX.25 devices.
+
+if BR2_PACKAGE_APRX
+
+config BR2_APRX_CONFIG_PATH
+	string "Path to the aprx configuration file"
+	default "/etc/aprx.conf"
+	help
+	  The init script will explicitly reference this path when starting
+	  the soundmodem service.
+
+endif # BR2_PACKAGE_APRX
