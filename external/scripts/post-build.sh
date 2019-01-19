@@ -26,6 +26,3 @@ DATA_ENTRY="/dev/mmcblk0p4	${DATA_PATH}	ext4	defaults	0	2"
 
 append_line "$CONF_ENTRY" "$FSTAB"
 append_line "$DATA_ENTRY" "$FSTAB"
-
-# Disable tty0 serial console
-sed -i '/console 0/d' ${TARGET_DIR}/etc/inittab
