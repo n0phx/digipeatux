@@ -74,13 +74,12 @@ done
 
 rm -rf "${GENIMAGE_TMP}"
 
-makeimg "${BINARIES_DIR}/conf.ext4" $CONF_PARTITION_SIZE || exit 1
-makeimg "${BINARIES_DIR}/data.ext4" $DATA_PARTITION_SIZE || exit 1
-
 kernelcfg="${BR2_EXTERNAL_CUSTOM_PATH}/$(getkernelcfg "${BR2_CONFIG}")"
 cmdline="$(getcmdline "$kernelcfg")"
 echo "$cmdline" > "${CMDLINE_FILE}"
 
+makeimg "${BINARIES_DIR}/conf.ext4" $CONF_PARTITION_SIZE || exit 1
+makeimg "${BINARIES_DIR}/data.ext4" $DATA_PARTITION_SIZE || exit 1
 genimage                           \
 	--rootpath "${TARGET_DIR}"     \
 	--tmppath "${GENIMAGE_TMP}"    \

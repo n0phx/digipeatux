@@ -28,5 +28,5 @@ DATA_ENTRY="/dev/mmcblk0p4	${DATA_PATH}	ext4	defaults	0	2"
 append_line "$CONF_ENTRY" "$FSTAB"
 append_line "$DATA_ENTRY" "$FSTAB"
 
-# Patch inittab to execute the mountsd script instead of a plain `mount -a`
+# Patch inittab to execute the mountall script instead of a plain `mount -a`
 sed -e "s/\/bin\/mount -a/\/bin\/mountall/" -i "$INITTAB"
