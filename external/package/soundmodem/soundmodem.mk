@@ -20,4 +20,11 @@ define SOUNDMODEM_INSTALL_INIT_SYSV
 				$(TARGET_DIR)/etc/init.d/S50soundmodem
 endef
 
+define SOUNDMODEM_INSTALL_CONFIG
+	$(INSTALL) -m 0644 -D $(SOUNDMODEM_PKGDIR)/soundmodem.conf \
+				$(TARGET_DIR)/etc/ax25/soundmodem.conf
+endef
+
+SOUNDMODEM_POST_INSTALL_TARGET_HOOKS += SOUNDMODEM_INSTALL_CONFIG
+
 $(eval $(autotools-package))
