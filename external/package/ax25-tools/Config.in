@@ -1,0 +1,8 @@
+config BR2_PACKAGE_AX25_TOOLS
+	bool "ax25-tools"
+	select BR2_PACKAGE_LIBAX25
+	select BR2_PACKAGE_NCURSES
+	select BR2_PACKAGE_ZLIB
+	help
+	  These are hamradio specific tools for setting up and configuring hamradio
+	  ports that use AX.25 Net/ROM or ROSE network protocols. 
