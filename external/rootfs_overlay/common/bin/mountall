@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Waits for the SD card to appear and for the mounting of rootfs to finish,
+# after which it mounts everything from `/etc/fstab`
+SD_DEV="/dev/mmcblk0p3"
+MOUNT_POINT="/mnt/conf"
+
+echo "Waiting for SD card to appear and rootfs to be mounted."
+while ! [[ -e "$SD_DEV" && -e "$MOUNT_POINT" ]]; do
+  sleep 1
+done
+
+echo "SD card appeared and mountpoint available."
+/bin/mount -a
