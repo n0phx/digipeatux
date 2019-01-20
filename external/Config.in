@@ -22,10 +22,13 @@ menu "System configuration"
 
 endmenu
 
+menu "Libraries"
+	source "$BR2_EXTERNAL_CUSTOM_PATH/package/libax25/Config.in"
+endmenu
+
 menu "Applications"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/aprx/Config.in"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/ax25-apps/Config.in"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/ax25-tools/Config.in"
-	source "$BR2_EXTERNAL_CUSTOM_PATH/package/libax25/Config.in"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/soundmodem/Config.in"
 endmenu
