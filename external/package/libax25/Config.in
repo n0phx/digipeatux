@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBAX25
+	bool "libax25"
+	help
+	  libax25 is a library containing a set of functions making it easier
+	  to write hamradio programs. The functions cover most of the types of
+	  hamradio address families (AX.25, ROSE & NET/ROM) as well as
+	  understanding the hamradio port parameters in the config files.
