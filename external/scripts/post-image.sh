@@ -72,6 +72,13 @@ __EOF__
 
 done
 
+# Enable audio on rpi
+AUDIO_ON="dtparam=audio=on"
+CONFIG_TXT="${BINARIES_DIR}/rpi-firmware/config.txt"
+if ! grep -qF "$AUDIO_ON" "$CONFIG_TXT"; then
+	echo "$AUDIO_ON" >> "$CONFIG_TXT"
+fi
+
 rm -rf "${GENIMAGE_TMP}"
 
 kernelcfg="${BR2_EXTERNAL_CUSTOM_PATH}/$(getkernelcfg "${BR2_CONFIG}")"
