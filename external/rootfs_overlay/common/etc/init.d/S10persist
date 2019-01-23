@@ -26,19 +26,28 @@ relpath() {
     echo "${path##$ancestor/}"
 }
 
+# Obtain the real path of a file, by following symlinks until a non-link file
+# is reached
+#
+# Argument:
+#   path: input path which real path is to be identified
+real_path() {
+  path="$1"
+  while [ -L "$path" ]; do
+    path="$(readlink "$path")"
+  done
+  echo "${path}"
+}
+
 # Create a persisten copy of a path in the $PERSISTENT directory and symlink
 # the original to the persistent copy.
 #
 # Argument:
-#   path:   absoolute path
+#   path:   absolute path
 #
 # If the path is a symlink, the symlink target is persisted instead.
 persist_path() {
-  path="$1"
-  while [ -L "$path" ]; do
-    # Follow links until we reach a non-link file
-    path="$(readlink "$path")"
-  done
+  path=$(real_path "$1")
   [ -e "$path" ] || return 1
   relp="$(relpath "$path")"
   target_path="${CONFDIR}/$relp"
