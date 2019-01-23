@@ -3,6 +3,8 @@
 # Setup wizard that populates the crucial config files for a valid digipeater
 # installation.
 
+EUID=$(id -u)
+
 # Config files to be patched
 AXPORTS="/etc/ax25/axports"
 SOUNDMODEM="/etc/ax25/soundmodem.conf"
@@ -14,6 +16,14 @@ PH_LATITUDE="%LATITUDE%"
 PH_LONGITUDE="%LONGITUDE%"
 PH_APRSIS_PASSCODE="%APRSIS_PASSCODE%"
 
+real_path() {
+  path="$1"
+  while [ -L "$path" ]; do
+    path="$(readlink "$path")"
+  done
+  echo "${path}"
+}
+
 contains() {
   path="$1"
   string="$2"
@@ -21,10 +31,10 @@ contains() {
 }
 
 replace() {
-  path="$1"
+  path=$(real_path "$1")
   old="$2"
   new="$3"
-  sed -e "s/$2/$3/" -i "$path"
+  sed -e "s/$2/$3/g" -i "$path"
 }
 
 error() {
@@ -34,11 +44,22 @@ error() {
 
 # If the last to-be-configured file is found to be already configured,
 # retreat silently
-contains "$APRX" "$CALLSIGN" || exit 0
+if ! contains "$APRX" "$PH_CALLSIGN"; then
+  echo "The setup seems to be already completed."
+  exit 0
+fi
+
+if [[ $EUID -ne 0 ]]; then
+  echo "The setup script must be executed with root privileges."
+  echo "Re-run the setup under sudo."
+  exit 1
+fi
+
+echo -e "APRS Setup\n"
 
 read -p "Callsign: " callsign
-read -p "Latitude: " latitude
-read -p "Longitude: " longitude
+read -p "Latitude (format: ddmm.mmN): " latitude
+read -p "Longitude (format: dddmm.mmE): " longitude
 read -p "APRS-IS Passcode: " passcode
 
 echo "Updating $AXPORTS"
