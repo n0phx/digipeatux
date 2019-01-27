@@ -1,13 +1,38 @@
 #!/bin/sh
 #
-# Triggers the sound setup script which configures the volume levels.
+# Restore the sound configuration, with a fallback to a safe default.
+#
+CARD=1
+DEFAULT_VOLUME="90%"
+CONFIG_FILE="/etc/asound.state"
 
-SETUP_SCRIPT="/usr/bin/sound_setup.sh"
+real_path() {
+  path="$1"
+  while [ -L "$path" ]; do
+    path="$(readlink "$path")"
+  done
+  echo "${path}"
+}
+
+init_defaults() {
+  controls="$(amixer -c $CARD controls | grep 'Volume')"
+  echo "$controls" | while read -r line ; do
+    device="$(echo "$line" | cut -d\, -f1)"
+    amixer --quiet -c $CARD cset $device $DEFAULT_VOLUME unmute
+  done
+  outfile=$(real_path "$CONFIG_FILE")
+  alsactl store --file "$outfile"
+}
+
+restore_config() {
+  alsactl restore --file "$CONFIG_FILE"
+}
 
 case "$1" in
     start)
         echo -n "Running sound setup script"
-        $SETUP_SCRIPT && echo "OK" || (echo "FAIL"; exit 1)
+	[ -f "$CONFIG_FILE" ] || init_defaults
+	restore_config && echo "OK" || (echo "FAIL"; exit 1)
         ;;
     *)
         echo "Usage: $0 {start}"
