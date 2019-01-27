@@ -7,7 +7,9 @@ CONFIG=/etc/aprx.conf
 DAEMON=/sbin/${NAME}
 DAEMON_ARGS=""
 PIDFILE=/var/run/${NAME}.pid
-LOGFILE=/var/log/$NAME.log
+LOGDIR=/var/log/$NAME
+
+mkdir -p $LOGDIR
 
 start(){
 	printf "Starting ${NAME}: "
