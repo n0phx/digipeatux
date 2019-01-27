@@ -20,6 +20,9 @@ init_defaults() {
     device="$(echo "$line" | cut -d\, -f1)"
     amixer --quiet -c $CARD cset $device $DEFAULT_VOLUME unmute
   done
+}
+
+store_config() {
   outfile=$(real_path "$CONFIG_FILE")
   alsactl store --file "$outfile"
 }
@@ -31,7 +34,7 @@ restore_config() {
 case "$1" in
     start)
         echo -n "Running sound setup script"
-	[ -f "$CONFIG_FILE" ] || init_defaults
+	[ -s "$CONFIG_FILE" ] || (init_defaults; store_config)
 	restore_config && echo "OK" || (echo "FAIL"; exit 1)
         ;;
     *)
