@@ -7,7 +7,7 @@ SETUP_SCRIPT="/usr/bin/gpio_setup.sh"
 case "$1" in
     start)
         echo -n "Running gpio setup script"
-        $GPIO_SCRIPT && echo "OK" || (echo "FAIL"; exit 1)
+        $SETUP_SCRIPT && echo "OK" || (echo "FAIL"; exit 1)
         ;;
     *)
         echo "Usage: $0 {start}"
