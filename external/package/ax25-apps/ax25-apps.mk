@@ -6,7 +6,8 @@
 
 AX25_APPS_VERSION = 0.0.8-rc4
 AX25_APPS_SOURCE = ax25-apps-$(AX25_APPS_VERSION).tar.gz
-AX25_APPS_SITE = http://www.linux-ax25.org/pub/ax25-apps
+# AX25_APPS_SITE = http://www.linux-ax25.org/pub/ax25-apps
+AX25_APPS_SITE = https://archive.org/download/ax25-apps-$(AX25_APPS_VERSION)
 AX25_APPS_LICENSE = GPL-2
 AX25_APPS_LICENSE_FILES = COPYING
 AX25_APPS_INSTALL_STAGING = NO

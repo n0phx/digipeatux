@@ -6,7 +6,8 @@
 
 AX25_TOOLS_VERSION = 0.0.10-rc4
 AX25_TOOLS_SOURCE = ax25-tools-$(AX25_TOOLS_VERSION).tar.gz
-AX25_TOOLS_SITE = http://www.linux-ax25.org/pub/ax25-tools
+# AX25_TOOLS_SITE = http://www.linux-ax25.org/pub/ax25-tools
+AX25_TOOLS_SITE = https://archive.org/download/ax25-tools-$(AX25_TOOLS_VERSION)
 AX25_TOOLS_LICENSE = GPL-2
 AX25_TOOLS_LICENSE_FILES = COPYING
 AX25_TOOLS_INSTALL_STAGING = NO

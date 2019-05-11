@@ -6,7 +6,8 @@
 
 LIBAX25_VERSION = 0.0.12-rc4
 LIBAX25_SOURCE = libax25-$(LIBAX25_VERSION).tar.gz
-LIBAX25_SITE = http://www.linux-ax25.org/pub/libax25
+# LIBAX25_SITE = http://www.linux-ax25.org/pub/libax25
+LIBAX25_SITE = https://archive.org/download/libax25-$(LIBAX25_VERSION)
 LIBAX25_LICENSE = GPL-2
 LIBAX25_LICENSE_FILES = COPYING
 LIBAX25_INSTALL_STAGING = YES
