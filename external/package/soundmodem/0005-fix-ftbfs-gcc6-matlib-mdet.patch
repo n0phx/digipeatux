@@ -1,6 +1,7 @@
 Description: Fix FTBFS with GCC 6: return-statement with a value
 Author: Kamal Mostafa <kamal@whence.com>
 Bug-Debian: https://bugs.debian.org/812016
+Fetch from: https://sources.debian.org/patches/soundmodem/0.20-5/
 
 The mdet() function is unused anyway, so just ifdef it out.
 

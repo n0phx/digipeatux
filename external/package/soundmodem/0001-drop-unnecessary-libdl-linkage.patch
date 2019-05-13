@@ -1,6 +1,7 @@
 Description: drop unnecessary libdl linkage (ALSA_LIBS)
 Author: Kamal Mostafa <kamal@whence.com>
 Last-Update: 2010-12-17
+Fetch from: https://sources.debian.org/patches/soundmodem/0.20-5/
 
 ---
 Drop libdl linkage to avoid:

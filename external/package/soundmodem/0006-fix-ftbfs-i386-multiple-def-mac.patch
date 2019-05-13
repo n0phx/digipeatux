@@ -1,5 +1,6 @@
 Description: Fix FTBFS on i386 arches: multiple definition of `mac'
 Author: Kamal Mostafa <kamal@whence.com>
+Fetch from: https://sources.debian.org/patches/soundmodem/0.20-5/
 
 --- soundmodem-0.20.orig/newqpsk/filter-i386.h
 +++ soundmodem-0.20/newqpsk/filter-i386.h

@@ -1,6 +1,6 @@
-Patch to fix ftbfs with GCC-5
-This is mostly removing unused variables and functions.
-colint@debian.org
+Description: Patch to fix ftbfs with GCC-5. This is mostly removing unused variables and functions.
+Author: colint@debian.org
+Fetch from: https://sources.debian.org/patches/soundmodem/0.20-5/
 
 --- a/fsk/modem.c
 +++ b/fsk/modem.c

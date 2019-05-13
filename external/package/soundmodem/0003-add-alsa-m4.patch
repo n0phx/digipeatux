@@ -1,6 +1,7 @@
 Description: Add alsa.m4 to fix FTBFS on GNU/kFreeBSD and GNU/Hurd
 Author: Iain R. Learmonth <irl@fsfe.org>
 Last-Updated: 2015-05-05
+Fetch from: https://sources.debian.org/patches/soundmodem/0.20-5/
 
 --- /dev/null
 +++ soundmodem/m4/alsa.m4
