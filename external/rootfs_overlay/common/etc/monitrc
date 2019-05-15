@@ -1,0 +1,10 @@
+set daemon 120           # check services at 2-minute intervals
+    with start delay 120 # delay the first check by 4-minutes
+
+check process soundmodem with pidfile /var/run/soundmodem.pid
+    start program = "/etc/init.d/S50soundmodem start"
+    stop program = "/etc/init.d/S50soundmodem stop"
+
+check process aprx with pidfile /var/run/aprx.pid
+    start program = "/etc/init.d/S60aprx start"
+    stop program = "/etc/init.d/S60aprx stop"
