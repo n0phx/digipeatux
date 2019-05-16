@@ -1,4 +1,4 @@
-SUPPORTED_BOARDS := rpi rpi0 rpi2 rpi3
+SUPPORTED_BOARDS := rpi rpi2 rpi3
 
 ifeq ($(filter $(BOARD),$(SUPPORTED_BOARDS)),)
 $(error $(BOARD) is not a supported BOARD. Choose one of the available ones: $(SUPPORTED_BOARDS). E.g.: BOARD=rpi)
