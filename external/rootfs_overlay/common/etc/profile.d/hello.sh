@@ -4,7 +4,7 @@
 
 . /etc/version
 
-echo "--------------------"
-echo "$VERSION ($COMMIT)"
-echo "--------------------"
+echo "--------------------------------"
+echo "digipeatux $VERSION ($COMMIT)"
+echo "--------------------------------"
 
