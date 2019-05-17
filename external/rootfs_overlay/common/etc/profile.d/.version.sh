@@ -4,5 +4,7 @@
 
 . /etc/version
 
+echo "--------------------"
 echo "$VERSION ($COMMIT)"
+echo "--------------------"
 
