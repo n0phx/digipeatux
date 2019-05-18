@@ -28,11 +28,17 @@ menuconfig: $(CONFIG)
 linux-menuconfig: $(CONFIG)
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) linux-menuconfig
 
+busybox-menuconfig: $(CONFIG)
+	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) busybox-menuconfig
+
 savedefconfig: $(CONFIG)
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) savedefconfig
 
 savekernelconfig: $(CONFIG)
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) linux-update-defconfig
+
+savebusyboxconfig: $(CONFIG)
+	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) busybox-update-config
 
 clean:
 	-rm -rf $(OUTPUT_PATH)
