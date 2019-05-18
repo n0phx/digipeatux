@@ -8,6 +8,7 @@ BUILDROOT_DIR = ./buildroot
 EXTERNAL_DIR = ../external
 OUTPUT_PATH := build/$(BOARD)
 OUTPUT_DIR := ../$(OUTPUT_PATH)
+IMAGES_PATH := $(OUTPUT_PATH)/images
 # Auto-generated config file based on defconfig
 CONFIG := $(OUTPUT_PATH)/.config
 # Buildroot configuration file specific to the chosen board
@@ -21,6 +22,7 @@ export BR2_EXTERNAL=$(EXTERNAL_DIR)
 
 build: $(CONFIG)
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR)
+	@md5sum --binary $(IMAGES_PATH)/sdcard.img | awk '{print $$1}' > $(IMAGES_PATH)/sdcard.md5
 
 menuconfig: $(CONFIG)
 	@make -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) menuconfig
