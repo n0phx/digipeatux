@@ -13,6 +13,7 @@ AX25_APPS_LICENSE_FILES = COPYING
 AX25_APPS_INSTALL_STAGING = NO
 AX25_APPS_INSTALL_TARGET = YES
 AX25_APPS_DEPENDENCIES = libax25 ncurses
+AX25_APPS_MAKE_OPTS = CFLAGS="-fcommon"
 
 define AX25_APPS_INSTALL_CONFIG
 # HACK: The following two files are touched / created here, because the Makefile
