@@ -1,0 +1,19 @@
+config BR2_PACKAGE_DIREWOLF
+        bool "direwolf"
+        select BR2_PACKAGE_ALSA_LIB
+        help
+          Dire Wolf is a software "soundcard" AX.25 packet modem/TNC
+          and APRS encoder/decoder.
+
+          https://github.com/wb2osz/direwolf/
+
+if BR2_PACKAGE_DIREWOLF
+
+config BR2_DIREWOLF_BUILD_WITH_NEON
+	bool "Build with NEON vector instructions"
+	help
+	  Direwolf doesn't autodetect NEON support correctly when cross-compiling.
+	  For Raspberry Pi 1, this is a problem, as it will enable NEON instructions
+	  even though the RPi1 CPU doesn't support them.
+
+endif # BR2_PACKAGE_DIREWOLF

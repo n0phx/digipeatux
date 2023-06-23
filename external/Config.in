@@ -30,4 +30,6 @@ menu "Applications"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/aprx/Config.in"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/ax25-apps/Config.in"
 	source "$BR2_EXTERNAL_CUSTOM_PATH/package/ax25-tools/Config.in"
+	source "$BR2_EXTERNAL_CUSTOM_PATH/package/direwolf/Config.in"
+	source "$BR2_EXTERNAL_CUSTOM_PATH/package/libax25/Config.in"
 endmenu

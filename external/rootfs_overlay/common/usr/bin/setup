@@ -7,7 +7,7 @@ EUID=$(id -u)
 
 # Config files to be patched
 AXPORTS="/etc/ax25/axports"
-SOUNDMODEM="/etc/ax25/soundmodem.conf"
+DIREWOLF="/etc/direwolf.conf"
 APRX="/etc/aprx.conf"
 
 # Placeholders to be checked in config files
@@ -65,8 +65,8 @@ read -p "APRS-IS Passcode: " passcode
 echo "Updating $AXPORTS"
 replace "$AXPORTS" "$PH_CALLSIGN" "$callsign" || error "$AXPORTS"
 
-echo "Updating $SOUNDMODEM"
-replace "$SOUNDMODEM" "$PH_CALLSIGN" "$callsign" || error "$SOUNDMODEM"
+echo "Updating $DIREWOLF"
+replace "$DIREWOLF" "$PH_CALLSIGN" "$callsign" || error "$DIREWOLF"
 
 echo "Updating $APRX"
 replace "$APRX" "$PH_CALLSIGN" "$callsign" || error "$APRX"

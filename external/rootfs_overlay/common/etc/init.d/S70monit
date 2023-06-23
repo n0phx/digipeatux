@@ -17,7 +17,7 @@ start(){
 
 stop(){
 	printf "Stopping $NAME: "
-	start-stop-daemon -stop -quiet -pidfile $PIDFILE --name $NAME
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE --name $NAME
 	[ $? = 0 ] && echo "OK" || echo "FAIL"
 }
 

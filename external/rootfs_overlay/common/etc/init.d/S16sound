@@ -24,11 +24,11 @@ init_defaults() {
 
 store_config() {
   outfile=$(real_path "$CONFIG_FILE")
-  alsactl store --file "$outfile"
+  alsactl --no-ucm store --file "$outfile"
 }
 
 restore_config() {
-  alsactl restore --file "$CONFIG_FILE"
+  alsactl --no-ucm restore --file "$CONFIG_FILE"
 }
 
 case "$1" in

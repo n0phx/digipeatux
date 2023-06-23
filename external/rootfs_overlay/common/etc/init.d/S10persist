@@ -75,7 +75,7 @@ persist() {
   # subsequently disable setting passwords.
   rm "${CONFDIR}/etc/shadow+" 2>/dev/null || true
 
-  return errors
+  return "$errors"
 }
 
 case "$1" in

@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# rtl_fm          Stream packets from RTL-SDR with netcat through UDP
+
+NAME=rtl_fm
+PIDFILE=/var/run/$NAME.pid
+LOGFILE=/var/log/$NAME.log
+DAEMON=/usr/bin/$NAME
+NC=/usr/bin/nc
+DAEMON_ARGS="-f 144.800M -o 4 - | $NC -u localhost 7355"
+
+find_pgid (){
+        local pid="$1"
+        local pgid=$(ps -o pid,pgid | awk -v var="$pid" '$1 == var {print $2}')
+        echo "$pgid"
+}
+
+start(){
+        printf "Starting $NAME: "
+        start-stop-daemon --start --quiet  --make-pidfile --pidfile $PIDFILE --background \
+                          --startas /bin/sh -- -c "exec $DAEMON $DAEMON_ARGS > $LOGFILE 2>&1"
+
+        [ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop(){
+        printf "Stopping $NAME: "
+        pid=$(cat $PIDFILE)
+        kill -TERM -$(find_pgid $pid) && rm $PIDFILE
+        [ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        restart)
+                stop
+                start
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart}"
+                exit 1
+                ;;
+esac
+

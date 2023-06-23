@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# direwolf      This script controls the direwolf service 
+#               It can start only after network is brought up
+
+NAME=direwolf
+CONFIG=/etc/direwolf.conf
+DAEMON=/usr/bin/${NAME}
+DAEMON_ARGS="-t 0 -n 1 -r 24000 -b 16 -p -c ${CONFIG} udp:7355"
+PIDFILE=/var/run/${NAME}.pid
+LOGFILE=/var/log/$NAME.log
+
+start(){
+	printf "Starting ${NAME}: "
+	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE \
+			--startas /bin/sh -- -c "exec $DAEMON $DAEMON_ARGS > $LOGFILE 2>&1"
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop(){
+	printf "Stopping ${NAME}: "
+	start-stop-daemon --stop --quiet --pidfile ${PIDFILE} --name $NAME
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac

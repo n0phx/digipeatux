@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# kissattach          Connect direwolf pseudo terminal to ax.25 port
+
+NAME="kissattach"
+DIREWOLF_PSEUDO_TERMINAL=$(readlink -f /tmp/kisstnc)
+AX25_PORT="1"
+KISSATTACH="/usr/sbin/$NAME"
+KISSATTACH_ARGS="$DIREWOLF_PSEUDO_TERMINAL $AX25_PORT"
+KISSATTACH_KILL="/usr/bin/killall $NAME"
+
+start(){
+	printf "Starting $NAME: "
+	$KISSATTACH $KISSATTACH_ARGS
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop(){
+	printf "Stopping $NAME: "
+	$KISSATTACH_KILL
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac

@@ -8,10 +8,10 @@ load_modules() {
   errors=0
 
   while read -r mod; do
-    modprobe "$mod" || errors=1
+    modprobe $mod || errors=1
   done < "$MODULES"
 
-  return errors
+  return "$errors"
 }
 
 case "$1" in
