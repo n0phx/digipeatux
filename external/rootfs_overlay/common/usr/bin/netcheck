@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Check for internet connection periodically and restart network service if failure threshold is met
+
+NETCHECK_FAIL_THRESHOLD=3
+NETCHECK_INTERVAL=60
+NETCHECK_TARGET_URL=www.google.com
+
+log() {
+    echo "$(date) $1"
+}
+
+restart_network() {
+    /etc/init.d/S40network restart
+}
+
+netcheck() {
+    failure=0
+    while :
+    do
+        host -W5 $NETCHECK_TARGET_URL > /dev/null 2>&1
+        if [ "$?" -ne 0 ]; then
+            log "DNS lookup failure #$failure"
+            failure=$(( failure + 1 ))
+        else
+            ping -c 1 $NETCHECK_TARGET_URL > /dev/null 2>&1
+            if [ "$?" -ne 0 ]; then
+                failure=$(( failure + 1 ))
+                log "Ping failure #$failure"
+            else
+                failure=0
+            fi
+        fi
+
+        if [ $failure -ge $NETCHECK_FAIL_THRESHOLD ]; then
+            log "Network down, check failure threshold exceeded, restarting network..."
+            restart_network
+            failure=0
+        fi
+
+        sleep $NETCHECK_INTERVAL
+    done
+}
+
+netcheck
