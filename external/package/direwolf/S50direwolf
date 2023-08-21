@@ -5,10 +5,16 @@
 
 NAME=direwolf
 CONFIG=/etc/direwolf.conf
+SDR_CONFFILE=/etc/sdr.conf
 DAEMON=/usr/bin/${NAME}
-DAEMON_ARGS="-t 0 -n 1 -r 24000 -b 16 -p -c ${CONFIG} udp:7355"
 PIDFILE=/var/run/${NAME}.pid
 LOGFILE=/var/log/$NAME.log
+
+if [ -f "$SDR_CONFFILE" ]; then
+	. $SDR_CONFFILE
+fi
+
+DAEMON_ARGS="$DIREWOLF_PARAMS -c ${CONFIG} udp:7355"
 
 start(){
 	printf "Starting ${NAME}: "

@@ -7,7 +7,11 @@ PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/$NAME.log
 DAEMON=/usr/bin/$NAME
 NC=/usr/bin/nc
-DAEMON_ARGS="-f 144.800M -o 4 - | $NC -u localhost 7355"
+SDR_CONFFILE=/etc/sdr.conf
+
+. $SDR_CONFFILE
+
+DAEMON_ARGS="$RTLFM_PARAMS - | $NC -u localhost 7355"
 
 find_pgid (){
         local pid="$1"
